@@ -20,13 +20,20 @@ void ATankPlayer::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (PlayerControllerRef)
+    if (PlayerController)
     {
         FHitResult HitResult;
-        PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+        PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
 
         RotateTurret(HitResult.ImpactPoint);
     }
+}
+
+void ATankPlayer::HandleDestruction()
+{
+    Super::HandleDestruction();
+    SetActorHiddenInGame(true);
+    SetActorTickEnabled(false);
 }
 
 // Called when the game starts or when spawned
@@ -34,7 +41,7 @@ void ATankPlayer::BeginPlay()
 {
     Super::BeginPlay();
 
-    PlayerControllerRef = Cast<APlayerController>(GetController());
+    PlayerController = Cast<APlayerController>(GetController());
 }
 
 void ATankPlayer::Move(float Value)

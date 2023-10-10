@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "TankGameModeBase.h"
 #include "LifeComponent.generated.h"
 
 
@@ -25,7 +26,10 @@ private:
 	int MaxLife = 3;
 	int Life = 0;
 
-	void DamageTaken(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+	UFUNCTION()
+	void DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+	
+	class ATankGameModeBase* TankGameModeBase;
 
 public:	
 	// Called every frame

@@ -2,6 +2,7 @@
 
 
 #include "LifeComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 ULifeComponent::ULifeComponent()
@@ -22,6 +23,7 @@ void ULifeComponent::BeginPlay()
 	Life = MaxLife;
 
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &ULifeComponent::DamageTaken);
+	TankGameModeBase = Cast<ATankGameModeBase>(UGameplayStatics::GetGameMode(this));
 }
 
 void ULifeComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
@@ -29,6 +31,11 @@ void ULifeComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDama
 	if (Damage <= 0) return;
 
 	Life -= Damage;
+	if (Life <= 0 && TankGameModeBase)
+	{
+		TankGameModeBase->ActorDied(DamagedActor);
+	}
+		
 	UE_LOG(LogTemp, Warning, TEXT("Life: %i"), Life);
 }
 
