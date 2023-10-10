@@ -17,6 +17,27 @@ void ATankPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATankPlayer::Turn);
 }
 
+void ATankPlayer::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    if (PlayerControllerRef)
+    {
+        FHitResult HitResult;
+        PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+
+        RotateTurret(HitResult.ImpactPoint);
+    }
+}
+
+// Called when the game starts or when spawned
+void ATankPlayer::BeginPlay()
+{
+    Super::BeginPlay();
+
+    PlayerControllerRef = Cast<APlayerController>(GetController());
+}
+
 void ATankPlayer::Move(float Value)
 {
     FVector DeltaLocation = FVector::ZeroVector;
@@ -28,8 +49,8 @@ void ATankPlayer::Move(float Value)
 void ATankPlayer::Turn(float Value)
 {
     FRotator DeltaRotation = FRotator::ZeroRotator;
-    DeltaRotation.Yaw = Value * Speed * GetWorld()->DeltaTimeSeconds;
-    AddActorLocalRotation(DeltaRotation);
+    DeltaRotation.Yaw = Value * TurnRate * GetWorld()->DeltaTimeSeconds;
+    AddActorLocalRotation(DeltaRotation, true);
     UE_LOG(LogTemp, Warning, TEXT("Player Turn: %f"), Value);
 }
 
