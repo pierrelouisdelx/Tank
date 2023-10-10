@@ -19,7 +19,7 @@ void ATankPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ATankPlayer::Move(float Value)
 {
     FVector DeltaLocation = FVector::ZeroVector;
-    DeltaLocation.X = Value;
+    DeltaLocation.X = Value * Speed * GetWorld()->DeltaTimeSeconds;
     AddActorLocalOffset(DeltaLocation);
     UE_LOG(LogTemp, Warning, TEXT("Player Move: %f"), Value);
 }

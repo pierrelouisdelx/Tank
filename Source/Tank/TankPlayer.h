@@ -19,6 +19,8 @@ public:
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+    UPROPERTY(EditAnywhere, Category="Movement")
+    float Speed = 200.f;
     void Move(float Value);
 	
 };
