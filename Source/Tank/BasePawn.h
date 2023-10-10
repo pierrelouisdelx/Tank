@@ -30,4 +30,7 @@ private:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     USceneComponent* ProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+	float turretRotationSpeed = 5.f;
 };
