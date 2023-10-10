@@ -6,11 +6,12 @@
 
 ATankPlayer::ATankPlayer()
 {
-    PrimaryActorTick.bCanEverTick = true;
+    UE_LOG(LogTemp, Warning, TEXT("ATankPlayer"));
 }
 
 void ATankPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+    UE_LOG(LogTemp, Warning, TEXT("SetupPlayerInputComponent"));
     Super::SetupPlayerInputComponent(PlayerInputComponent);
     PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATankPlayer::Move);
 }
