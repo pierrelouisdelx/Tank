@@ -28,15 +28,15 @@ ABasePawn::ABasePawn()
 
 void ABasePawn::RotateTurret(FVector LookAtTarget)
 {
-	FVector ToTarget = LookAtTarget - TurretMesh->GetComponentLocation();
-	FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw + 180, 0.f);
+	const FVector ToTarget = LookAtTarget - TurretMesh->GetComponentLocation();
+	const FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw + 180, 0.f);
 	TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), LookAtRotation, GetWorld()->DeltaTimeSeconds, turretRotationSpeed));
 }
 
 void ABasePawn::Fire()
 {
-	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
-	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
+	const FVector Location = ProjectileSpawnPoint->GetComponentLocation();
+	const FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 
 	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 }
