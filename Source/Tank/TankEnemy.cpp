@@ -9,14 +9,9 @@ void ATankEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (PlayerTank)
+	if (InFireRange())
 	{
-		float Distance = FVector::Dist(GetActorLocation(), PlayerTank->GetActorLocation());
-
-		if (Distance <= FireRange)
-		{
-			RotateTurret(PlayerTank->GetActorLocation());
-		}
+		RotateTurret(PlayerTank->GetActorLocation());
 	}
 }
 
@@ -25,4 +20,30 @@ void ATankEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerTank = Cast<ATankPlayer>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &ATankEnemy::CheckFireCondition, FireRate, true);
 }
+
+void ATankEnemy::CheckFireCondition()
+{
+	if (InFireRange())
+	{
+		Fire();
+	}
+}
+
+bool ATankEnemy::InFireRange()
+{
+	if (PlayerTank)
+	{
+		float Distance = FVector::Dist(GetActorLocation(), PlayerTank->GetActorLocation());
+
+		if (Distance <= FireRange)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
