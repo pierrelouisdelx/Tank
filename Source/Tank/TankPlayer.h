@@ -15,7 +15,6 @@ class TANK_API ATankPlayer : public ABasePawn
     GENERATED_BODY()
 
 public:
-    ATankPlayer();
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
     
     // Called every frame
@@ -30,14 +29,5 @@ protected:
     virtual void BeginPlay() override;
 
 private:
-    UPROPERTY(EditAnywhere, Category="Movement")
-    float Speed = 200.f;
-
-    UPROPERTY(EditAnywhere, Category="Movement")
-    float TurnRate = 45.f;
-    
-    void Move(float Value);
-    void Turn(float Value);
-
     APlayerController* PlayerController;
 };

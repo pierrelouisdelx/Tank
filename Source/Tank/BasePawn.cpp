@@ -47,3 +47,17 @@ void ABasePawn::Fire()
 	Projectile->SetOwner(this);
 }
 
+void ABasePawn::Move(float Value)
+{
+	FVector DeltaLocation = FVector::ZeroVector;
+	DeltaLocation.X = Value * Speed * GetWorld()->DeltaTimeSeconds;
+	AddActorLocalOffset(DeltaLocation);
+}
+
+void ABasePawn::Turn(float Value)
+{
+	FRotator DeltaRotation = FRotator::ZeroRotator;
+	DeltaRotation.Yaw = Value * TurnRate * GetWorld()->DeltaTimeSeconds;
+	AddActorLocalRotation(DeltaRotation, true);
+}
+

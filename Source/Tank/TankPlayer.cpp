@@ -4,10 +4,6 @@
 #include "TankPlayer.h"
 #include "Components/InputComponent.h"
 
-ATankPlayer::ATankPlayer()
-{
-}
-
 void ATankPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -44,17 +40,5 @@ void ATankPlayer::BeginPlay()
     PlayerController = Cast<APlayerController>(GetController());
 }
 
-void ATankPlayer::Move(float Value)
-{
-    FVector DeltaLocation = FVector::ZeroVector;
-    DeltaLocation.X = Value * Speed * GetWorld()->DeltaTimeSeconds;
-    AddActorLocalOffset(DeltaLocation);
-}
 
-void ATankPlayer::Turn(float Value)
-{
-    FRotator DeltaRotation = FRotator::ZeroRotator;
-    DeltaRotation.Yaw = Value * TurnRate * GetWorld()->DeltaTimeSeconds;
-    AddActorLocalRotation(DeltaRotation, true);
-}
 

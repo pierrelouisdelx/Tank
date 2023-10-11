@@ -17,6 +17,8 @@ public:
 	void HandleDestruction();
 
 protected:
+	void Move(float Value);
+	void Turn(float Value);
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
 
@@ -32,6 +34,12 @@ private:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     USceneComponent* ProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float Speed = 200.f;
+
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float TurnRate = 45.f;
 
 	UPROPERTY(EditAnywhere)
 	float turretRotationSpeed = 5.f;
