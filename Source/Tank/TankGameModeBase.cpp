@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "TankPlayer.h"
 #include "TankPlayerController.h"
+#include "TankEnemy.h"
 
 void ATankGameModeBase::ActorDied(AActor* DeadActor)
 {
@@ -16,6 +17,10 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 		{
 			TankPlayerController->SetPlayerEnabledState(false);
 		}
+	}
+	else if (ATankEnemy* DestroyedEnemy = Cast<ATankEnemy>(DeadActor))
+	{
+		DestroyedEnemy->HandleDestruction();
 	}
 }
 

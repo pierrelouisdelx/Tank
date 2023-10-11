@@ -39,8 +39,6 @@ void ULifeComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDama
 	UE_LOG(LogTemp, Warning, TEXT("Life: %i"), Life);
 }
 
-
-
 // Called every frame
 void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {

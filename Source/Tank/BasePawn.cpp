@@ -29,6 +29,8 @@ ABasePawn::ABasePawn()
 void ABasePawn::HandleDestruction()
 {
 	Destroy();
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
 }
 
 void ABasePawn::RotateTurret(FVector LookAtTarget)

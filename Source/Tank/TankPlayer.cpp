@@ -25,13 +25,6 @@ void ATankPlayer::Tick(float DeltaTime)
     }
 }
 
-void ATankPlayer::HandleDestruction()
-{
-    Super::HandleDestruction();
-    SetActorHiddenInGame(true);
-    SetActorTickEnabled(false);
-}
-
 // Called when the game starts or when spawned
 void ATankPlayer::BeginPlay()
 {
