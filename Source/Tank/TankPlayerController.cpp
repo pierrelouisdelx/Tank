@@ -11,7 +11,7 @@ void ATankPlayerController::SetPlayerEnabledState(bool bPlayerEnabled)
 	}
 	else
 	{
-		//GetPawn()->DisableInput(this);
+		GetPawn()->DisableInput(this);
 	}
 
 	bShowMouseCursor = bPlayerEnabled;
