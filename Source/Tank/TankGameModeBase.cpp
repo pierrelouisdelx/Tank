@@ -12,10 +12,10 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 {
 	if (DeadActor == PlayerTank)
 	{
-		PlayerTank->HandleDestruction();
 		if (TankPlayerController)
 		{
 			TankPlayerController->SetPlayerEnabledState(false);
+			PlayerTank->HandleDestruction();
 		}
 	}
 	else if (ATankEnemy* DestroyedEnemy = Cast<ATankEnemy>(DeadActor))
