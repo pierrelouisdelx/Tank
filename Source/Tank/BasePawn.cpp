@@ -47,6 +47,13 @@ void ABasePawn::Fire()
 
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 	Projectile->SetOwner(this);
+
+	UMaterialInstanceDynamic* Material = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
+	if (Material)
+	{
+		Projectile->setMaterial(Material);
+	}
+	
 }
 
 void ABasePawn::Move(float Value)

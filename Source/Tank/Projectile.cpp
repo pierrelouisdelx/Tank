@@ -54,3 +54,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	}
 }
 
+void AProjectile::setMaterial(UMaterialInstanceDynamic* Material)
+{
+	ProjectileMesh->SetMaterial(0, Material);
+}

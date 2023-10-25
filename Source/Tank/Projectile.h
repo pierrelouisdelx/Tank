@@ -33,8 +33,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	int Damage = 1;
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void setMaterial(UMaterialInstanceDynamic* Material);
 
 };
