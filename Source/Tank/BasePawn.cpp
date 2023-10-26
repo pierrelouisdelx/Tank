@@ -24,6 +24,8 @@ ABasePawn::ABasePawn()
 
     ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
     ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+
+	BulletsFired = 0;
 }
 
 void ABasePawn::HandleDestruction()
@@ -42,6 +44,12 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 
 void ABasePawn::Fire()
 {
+	if (BulletsFired >= MaxBulletsWithoutCooldown)
+	{
+		// Cooldown still active
+		return;
+	}
+	
 	const FVector Location = ProjectileSpawnPoint->GetComponentLocation();
 	const FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 
@@ -53,7 +61,11 @@ void ABasePawn::Fire()
 	{
 		Projectile->setMaterial(Material);
 	}
-	
+
+	BulletsFired++;
+
+	FTimerHandle FireRateTimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(FireRateTimerHandle, this, &ABasePawn::ResetFireCooldown, FireCooldown, false);
 }
 
 void ABasePawn::Move(float Value)
@@ -68,5 +80,10 @@ void ABasePawn::Turn(float Value)
 	FRotator DeltaRotation = FRotator::ZeroRotator;
 	DeltaRotation.Yaw = Value * TurnRate * GetWorld()->DeltaTimeSeconds;
 	AddActorLocalRotation(DeltaRotation, true);
+}
+
+void ABasePawn::ResetFireCooldown()
+{
+	BulletsFired--;
 }
 

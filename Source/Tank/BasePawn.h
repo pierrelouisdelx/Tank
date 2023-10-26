@@ -21,6 +21,7 @@ protected:
 	void Turn(float Value);
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
+	void ResetFireCooldown();
 
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -46,4 +47,13 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass;
+
+	// Number of bullets fired without cooldown
+	int32 BulletsFired;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	int32 MaxBulletsWithoutCooldown = 3;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float FireCooldown = 3.0f;
 };
