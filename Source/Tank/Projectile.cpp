@@ -50,7 +50,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Projectile hit %s"), *OtherActor->GetName());
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyInstigator, this, DamageTypeClass);
-		Destroy();
+		//Destroy();
 	}
 }
 
