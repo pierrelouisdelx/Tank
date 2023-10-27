@@ -12,15 +12,20 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 {
 	if (DeadActor == PlayerTank)
 	{
+		PlayerTank->HandleDestruction();
 		if (TankPlayerController)
 		{
 			TankPlayerController->SetPlayerEnabledState(false);
-			PlayerTank->HandleDestruction();
 		}
+		GameOver(false);
 	}
 	else if (ATankEnemy* DestroyedEnemy = Cast<ATankEnemy>(DeadActor))
 	{
 		DestroyedEnemy->HandleDestruction();
+		if (--TargetEnemies == 0)
+		{
+			GameOver(true);
+		}
 	}
 }
 
@@ -32,6 +37,7 @@ void ATankGameModeBase::BeginPlay()
 
 void ATankGameModeBase::HandleGameStart()
 {
+	TargetEnemies = GetTargetEnemiesCount();
 	PlayerTank = Cast<ATankPlayer>(UGameplayStatics::GetPlayerPawn(this, 0));
 	TankPlayerController = Cast<ATankPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 
@@ -46,5 +52,12 @@ void ATankGameModeBase::HandleGameStart()
 
 		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, StartDelay, false);
 	}
+}
+
+int32 ATankGameModeBase::GetTargetEnemiesCount()
+{
+	TArray<AActor*> Enemies;
+	UGameplayStatics::GetAllActorsOfClass(this, ATankEnemy::StaticClass(), Enemies);
+	return Enemies.Num();
 }
 
