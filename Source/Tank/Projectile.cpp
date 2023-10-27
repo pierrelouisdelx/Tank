@@ -51,7 +51,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	auto ProjectileTag = OtherActor->ActorHasTag(FName("Projectile"));
 	auto WallTag = OtherActor->ActorHasTag(FName("Wall"));
 
-	if (OtherActor && OtherActor != this && OtherActor != MyOwner && EnemyTag)
+	if (OtherActor && OtherActor != this && OtherActor != MyOwner && (PlayerTag || EnemyTag))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Projectile hit %s"), *OtherActor->GetName());
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyInstigator, this, DamageTypeClass);
