@@ -33,7 +33,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	int Damage = 1;
 
-
+	UPROPERTY(EditAnywhere)
+	int maxBounces = 3;
+	int currentBounces = 0;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

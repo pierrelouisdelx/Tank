@@ -46,11 +46,25 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	auto MyInstigator = MyOwner->GetInstigatorController();
 	auto DamageTypeClass = UDamageType::StaticClass();
 
-	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
+	auto PlayerTag = OtherActor->ActorHasTag(FName("Player"));
+	auto EnemyTag = OtherActor->ActorHasTag(FName("Enemy"));
+	auto ProjectileTag = OtherActor->ActorHasTag(FName("Projectile"));
+	auto WallTag = OtherActor->ActorHasTag(FName("Wall"));
+
+	if (OtherActor && OtherActor != this && OtherActor != MyOwner && EnemyTag)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Projectile hit %s"), *OtherActor->GetName());
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyInstigator, this, DamageTypeClass);
-		//Destroy();
+		Destroy();
+	}
+
+	if (PlayerTag || ProjectileTag || WallTag)
+	{
+		currentBounces++;
+		if (currentBounces >= maxBounces)
+		{
+			Destroy();
+		}
 	}
 }
 
