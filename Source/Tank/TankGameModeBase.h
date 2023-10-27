@@ -20,8 +20,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	
-	UFUNCTION(BlueprintImplementableEvent)
-	void StartGame();
+	UFUNCTION(BlueprintCallable)
+	void HandleGameStart();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool bWonGame);
@@ -32,7 +32,6 @@ private:
 
 	float StartDelay = 3.f;
 
-	void HandleGameStart();
 
 	int32 TargetEnemies = 0;
 	int32 GetTargetEnemiesCount();

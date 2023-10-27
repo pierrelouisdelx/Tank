@@ -32,17 +32,14 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 void ATankGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	HandleGameStart();
+
+	TargetEnemies = GetTargetEnemiesCount();
+	PlayerTank = Cast<ATankPlayer>(UGameplayStatics::GetPlayerPawn(this, 0));
+	TankPlayerController = Cast<ATankPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 }
 
 void ATankGameModeBase::HandleGameStart()
 {
-	TargetEnemies = GetTargetEnemiesCount();
-	PlayerTank = Cast<ATankPlayer>(UGameplayStatics::GetPlayerPawn(this, 0));
-	TankPlayerController = Cast<ATankPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
-
-	StartGame();
-
 	if (TankPlayerController)
 	{
 		TankPlayerController->SetPlayerEnabledState(false);
