@@ -5,6 +5,11 @@
 
 void ATankPlayerController::SetPlayerEnabledState(bool bPlayerEnabled)
 {
+	if (!GetPawn()) { 
+		UE_LOG(LogTemp, Warning, TEXT("No pawn found!"));
+		return;
+	}
+	
 	if (bPlayerEnabled)
 	{
 		GetPawn()->EnableInput(this);
